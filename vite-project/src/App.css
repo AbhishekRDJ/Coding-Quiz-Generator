@@ -1,0 +1,198 @@
+/* Background Styling */
+body {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Main Quiz Container */
+.quiz-container {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Question Styling */
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+/* Options Container */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Added spacing between buttons */
+  margin-top: 10px;
+}
+
+/* Option Buttons */
+.option-btn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  /* Increased padding */
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  /* Rounded edges */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.option-btn:hover {
+  background: #3578e5;
+  transform: scale(1.05);
+  /* Slight pop effect */
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Score Display */
+.score-container {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Restart Button */
+.restart-btn {
+  background: #ff4757;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-container {
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 1.6rem;
+}
+
+.button-container button {
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-container button:hover {
+  background: #3578e5;
+  transform: scale(1.05);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.next-button {
+  margin-top: 3rem;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  position: fixed;
+  bottom: 200px;
+  /* Adjusted to be a bit closer to the bottom */
+  left: 47%;
+  /* Center horizontally */
+  transform: translateX(-5%);
+  /* Corrected centering horizontally */
+  z-index: 1000;
+  /* Ensure the button stays on top of other elements */
+  width: auto;
+  font-size: 16px;
+}
+
+/* App.css */
+.correct {
+  background-color: #4CAF50;
+  /* Green */
+}
+
+.incorrect {
+  background-color: #F44336;
+  /* Red */
+}
+
+.default {
+  background-color: #2196F3;
+  /* Blue */
+}
+
+button {
+  transition: background-color 0.3s ease;
+  /* Smooth transition */
+}
+
+
+
+.next-button:hover {
+  background: #3578e5;
+  transform: scale(1.05);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.restart-btn:hover {
+  background: #e8413d;
+  transform: scale(1.05);
+}
+
+/* Loading Animation */
+.loading {
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
