@@ -2,15 +2,24 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";  // ✅ Import required module
 
 dotenv.config();
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+// ✅ Fix for __dirname issue
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
 
-const GEMINI_API_KEY = 'AIzaSyAJGIJk9kP9wOwuQgJPwYIICzblqv2GXmA'; // Use .env for security
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+// ✅ Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../vite-project/dist')));
 
 // Function to fetch a single quiz question
 const fetchSingleQuestion = async () => {
@@ -27,8 +36,8 @@ const fetchSingleQuestion = async () => {
       }
     ],
     generationConfig: {
-      temperature: 0.8, // Increase randomness (0.7–1.0 is best for variety)
-      topK: 40 // Higher values increase diversity
+      temperature: 0.8,
+      topK: 40
     }
   };
 
@@ -52,10 +61,8 @@ const fetchSingleQuestion = async () => {
     throw new Error("No generated content received");
   }
 
-  // 🛠 Remove Markdown formatting (if present)
   generatedText = generatedText.replace(/```json|```/g, "").trim();
 
-  // 🛠 Handle JSON safely
   let questionData;
   try {
     questionData = JSON.parse(generatedText);
@@ -72,23 +79,25 @@ app.post("/generate-quiz", async (req, res) => {
   try {
     const questions = [];
 
-    // Fetch 5 questions
     for (let i = 0; i < 5; i++) {
       const question = await fetchSingleQuestion();
       if (question) {
         questions.push(question);
       } else {
-        // If fetching a question fails, return an error
         return res.status(500).json({ error: "Failed to fetch question" });
       }
     }
 
-    // Return all 5 questions
     res.json(questions);
   } catch (error) {
     console.error("Error fetching Gemini API:", error);
     res.status(500).json({ error: "Failed to fetch questions" });
   }
+});
+
+// ✅ The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../vite-project/dist/index.html'));
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
